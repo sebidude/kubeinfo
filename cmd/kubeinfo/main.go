@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -83,7 +84,9 @@ func checkError(err error) {
 }
 
 func listObjectImage(name string) {
-	deployments, err := clientset.AppsV1().Deployments(namespace).List(metav1.ListOptions{})
+	ctx := context.Background()
+	defer ctx.Done()
+	deployments, err := clientset.AppsV1().Deployments(namespace).List(ctx, metav1.ListOptions{})
 	checkError(err)
 	for _, obj := range deployments.Items {
 		for _, c := range obj.Spec.Template.Spec.Containers {
@@ -97,7 +100,7 @@ func listObjectImage(name string) {
 		}
 	}
 
-	daemonsets, err := clientset.AppsV1().DaemonSets(namespace).List(metav1.ListOptions{})
+	daemonsets, err := clientset.AppsV1().DaemonSets(namespace).List(ctx, metav1.ListOptions{})
 	checkError(err)
 	for _, obj := range daemonsets.Items {
 		for _, c := range obj.Spec.Template.Spec.Containers {
@@ -111,7 +114,7 @@ func listObjectImage(name string) {
 		}
 	}
 
-	statefulsets, err := clientset.AppsV1().StatefulSets(namespace).List(metav1.ListOptions{})
+	statefulsets, err := clientset.AppsV1().StatefulSets(namespace).List(ctx, metav1.ListOptions{})
 	checkError(err)
 	for _, obj := range statefulsets.Items {
 		for _, c := range obj.Spec.Template.Spec.Containers {
