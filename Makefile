@@ -38,7 +38,7 @@ build-linux: info dep
 	@cp build/linux/$(APPNAME)-$(VERSIONTAG)-$(GITCOMMITHASH) build/linux/$(APPNAME)
 
 image:
-	docker build -t sebidude/kubeinfo:$(VERSIONTAG) .
+	docker build --no-cache -t sebidude/kubeinfo:$(VERSIONTAG) .
 
 publish:
 	docker push sebidude/kubeinfo:$(VERSIONTAG) 
