@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/alecthomas/kingpin"
+	kingpin "github.com/alecthomas/kingpin/v2"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
